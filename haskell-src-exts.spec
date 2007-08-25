@@ -3,8 +3,8 @@
 
 Summary:	An extension of the standard haskell-src package
 Name:		%{hs_package}
-Version: 	0.2
-Release: 	%mkrel 2
+Version: 	0.2.1
+Release: 	%mkrel 0.20070326
 Source0: 	http://www.cs.chalmers.se/~d00nibro/haskell-src-exts/%{hs_package}-%{version}.tar.bz2
 License: 	GPL
 Group:		Development/Other
@@ -30,7 +30,7 @@ patterns as per the HaRP extension as well as HSP-style embedded XML syntax
 (HSP release imminent).
 
 %prep
-%setup -q -n %{hs_package}
+%setup -q #-n %{hs_package}
 
 %build
 cd src/haskell-src-exts
