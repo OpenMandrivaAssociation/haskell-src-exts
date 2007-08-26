@@ -1,5 +1,4 @@
 %define hs_package haskell-src-exts
-%define ghc_version %(rpm -q ghc | cut -d- -f2)
 
 Summary:	An extension of the standard haskell-src package
 Name:		%{hs_package}
@@ -10,9 +9,9 @@ License: 	GPL
 Group:		Development/Other
 Url: 		http://www.cs.chalmers.se/~d00nibro/haskell-src-exts/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Buildrequires:	ghc = %{ghc_version}
+Buildrequires:	ghc
 Buildrequires:	happy
-Requires:	ghc = %{ghc_version}
+Requires:	ghc
 
 %description
 Haskell-Source with eXtensions (HSX, haskell-src-exts) is an extension of the
