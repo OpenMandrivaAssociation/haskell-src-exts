@@ -8,7 +8,6 @@ Source0: 	http://www.cs.chalmers.se/~d00nibro/haskell-src-exts/%{hs_package}-%{v
 License: 	GPL
 Group:		Development/Other
 Url: 		http://www.cs.chalmers.se/~d00nibro/haskell-src-exts/
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Buildrequires:	ghc
 Buildrequires:	happy
 Requires:	ghc
