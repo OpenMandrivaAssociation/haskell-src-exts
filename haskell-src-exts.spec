@@ -3,7 +3,7 @@
 Summary:	An extension of the standard haskell-src package
 Name:		%{hs_package}
 Version: 	0.2.1
-Release: 	%mkrel 0.20070326
+Release: 	%mkrel 0.20070327
 Source0: 	http://www.cs.chalmers.se/~d00nibro/haskell-src-exts/%{hs_package}-%{version}.tar.bz2
 License: 	GPL
 Group:		Development/Other
