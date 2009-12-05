@@ -2,15 +2,17 @@
 
 Summary:	An extension of the standard haskell-src package
 Name:		%{hs_package}
-Version: 	0.2.1
-Release: 	%mkrel 0.20070327
-Source0: 	http://www.cs.chalmers.se/~d00nibro/haskell-src-exts/%{hs_package}-%{version}.tar.bz2
+Version: 	1.3.3
+Release: 	%mkrel 1
+Source0: 	http://www.cs.chalmers.se/~d00nibro/haskell-src-exts/%{hs_package}-%{version}.tar.gz
 License: 	GPL
 Group:		Development/Other
 Url: 		http://www.cs.chalmers.se/~d00nibro/haskell-src-exts/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Buildrequires:	ghc
+BuildRequires:	haskell-macros
 Buildrequires:	happy
+BuildRequires:	cpphs >= 1.3
 Requires:	ghc
 
 %description
@@ -29,26 +31,22 @@ patterns as per the HaRP extension as well as HSP-style embedded XML syntax
 (HSP release imminent).
 
 %prep
-%setup -q #-n %{hs_package}
+%setup -q -n %{hs_package}-%{version}
 
 %build
-cd src/haskell-src-exts
-runhaskell Setup configure --ghc -v --prefix=%{_prefix}
-runhaskell Setup build -v
+%_cabal_build
 
-# generate register and unregister scripts
-runhaskell Setup register --gen-script
-runhaskell Setup unregister --gen-script
+%_cabal_genscripts
 
 %install
 rm -rf $RPM_BUILD_ROOT
+%_cabal_install
 
-cd src/haskell-src-exts
-runhaskell Setup copy  --copy-prefix=$RPM_BUILD_ROOT/%{_prefix}
+rm -fr %{buildroot}/%_datadir/*/doc/
 
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}
-cp register.sh $RPM_BUILD_ROOT/%{_datadir}/%{name}
-cp unregister.sh $RPM_BUILD_ROOT/%{_datadir}/%{name}
+%_cabal_rpm_gen_deps
+
+%_cabal_scriptlets
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -56,10 +54,5 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %{_libdir}/*
-%{_datadir}/*
-#%doc Abrechnung.lhs dot.lhs Tests.lhs
-
-%post -p %{_datadir}/%{name}/register.sh
-
-%preun -p %{_datadir}/%{name}/unregister.sh
-
+%{_docdir}/%{name}-%{version}
+%_cabal_rpm_files
