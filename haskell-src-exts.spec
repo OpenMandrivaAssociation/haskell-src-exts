@@ -1,58 +1,55 @@
-%define hs_package haskell-src-exts
+%global debug_package %{nil}
+#% define _cabal_setup Setup.lhs
+#% define _no_haddock 1
+%define module haskell-src-exts
+Name:           %{module}
+Version:        1.13.5
+Release:        1
+Summary:        Manipulating Haskell source: abstract syntax, lexer, parser, and pretty-printer
+Group:          Development/Other
+License:        BSD
+URL:            http://hackage.haskell.org/package/%{module}
+Source0:        http://hackage.haskell.org/packages/archive/%{module}/%{version}/%{module}-%{version}.tar.gz
 
-Summary:	An extension of the standard haskell-src package
-Name:		%{hs_package}
-Version: 	1.3.3
-Release: 	%mkrel 2
-Source0: 	http://www.cs.chalmers.se/~d00nibro/haskell-src-exts/%{hs_package}-%{version}.tar.gz
-License: 	GPL
-Group:		Development/Other
-Url: 		http://www.cs.chalmers.se/~d00nibro/haskell-src-exts/
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Buildrequires:	ghc
-BuildRequires:	haskell-macros
-Buildrequires:	happy
-BuildRequires:	cpphs >= 1.3
-Requires:	ghc
+BuildRequires:  ghc, ghc-devel, haskell-macros, haddock
+buildrequires:  cpphs happy
+Requires(pre):  ghc
+requires(pre):  cpphs happy
 
 %description
-Haskell-Source with eXtensions (HSX, haskell-src-exts) is an extension of the
-standard haskell-src package, and handles most common syntactic extensions to
-Haskell, including:
-
-  * Multi-parameter type classes with functional dependencies
-  * Empty data declarations
-  * GADTs
-  * Implicit parameters (ghc and hugs style)
-  * Template Haskell (broken for 6.4, needs redoing)
-
-and a few more. Apart from these standard extensions, it also handles regular
-patterns as per the HaRP extension as well as HSP-style embedded XML syntax
-(HSP release imminent).
+Haskell-Source with Extensions (HSE, haskell-src-exts) is an extension of the
+standard haskell-src package, and handles most registered syntactic extensions
+to Haskell, including:
+* Multi-parameter type classes with functional dependencies
+* Indexed type families (including associated types)
+* Empty data declarations
+* GADTs
+* Implicit parameters
+* Template Haskell
+and a few more. All extensions implemented in GHC are supported.
+Apart from these standard extensions, it also handles regular patterns as per
+the HaRP extension as well as HSX-style embedded XML syntax.
 
 %prep
-%setup -q -n %{hs_package}-%{version}
+%setup -q -n %{module}-%{version}
 
 %build
 %_cabal_build
 
-%_cabal_genscripts
-
 %install
-rm -rf $RPM_BUILD_ROOT
 %_cabal_install
-
-rm -fr %{buildroot}/%_datadir/*/doc/
-
 %_cabal_rpm_gen_deps
-
 %_cabal_scriptlets
 
-%clean
-rm -rf $RPM_BUILD_ROOT
+#% check
+#% _cabal_check
 
 %files
-%defattr(-,root,root)
-%{_libdir}/*
-%{_docdir}/%{name}-%{version}
-%_cabal_rpm_files
+%defattr(-,root,root,-)
+%{_docdir}/%{module}-%{version}
+%{_libdir}/%{module}-%{version}
+%_cabal_rpm_deps_dir
+%_cabal_haddoc_files
+
+
+
