@@ -8,7 +8,7 @@ Release:        1
 Summary:        Manipulating Haskell source: abstract syntax, lexer, parser, and pretty-printer
 Group:          Development/Other
 License:        BSD
-URL:            http://hackage.haskell.org/package/%{module}
+URL:            https://hackage.haskell.org/package/%{module}
 Source0:        http://hackage.haskell.org/packages/archive/%{module}/%{version}/%{module}-%{version}.tar.gz
 
 BuildRequires:  ghc, ghc-devel, haskell-macros, haddock
